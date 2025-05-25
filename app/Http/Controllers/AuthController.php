@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginReq;
+use App\Http\Resources\UserRes;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,57 +20,47 @@ class AuthController extends Controller
     }
 
     // Proses Login
-    public function login(Request $request)
+    public function login(LoginReq $request): JsonResponse
     {
-        $credentials = $request->only('email', 'password');
+        $data = $request->validated();
 
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('/admin/dashboard');
+        if(!Auth::attempt($data)){
+            return response()->json([
+                'status' => 404,
+                'message' => 'Email atau passwrod anda salah!'
+            ], 404);
         }
 
-        return back()->withErrors(['email' => 'Email atau Password salah']);
+        $user = Auth::user();
+
+        $token = $user->createToken("API_TOKEN")->plainTextToken;
+
+        return response()->json([
+            'status' => 200,
+            'message' => "Anda berhasil login!",
+            'token' => $token,
+            'token_type' => 'Bearer'
+        ], 200);
     }
 
-    // Tampilan Form Register
-    public function showRegisterForm()
-    {
-        return view('auth.register');
-    }
-
-    // Proses Register
-    public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed|min:6',
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        Auth::login($user);
-
-        return redirect()->route('admin.dashboard');
+    public function me(Request $request) {
+        $user = $request->user();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Data berhasil di ambil!',
+            'data' => new UserRes($user)
+        ], 200);
     }
 
     // Logout
-    public function logout()
+    public function logout(Request $request, int $id): JsonResponse
     {
-        Auth::logout();
-        return redirect()->route('auth.login');
-    }
+        $user = $request->user();
+        $user->tokens()->where('tokenable_id', $id)->delete();
 
-    // Dashboard
-    public function dashboard()
-    {
-        return view('admin.dashboard');
+        return response()->json([
+            'status' => 200,
+            'message' => 'Anda berhasil logout!'
+        ], 200);
     }
 }

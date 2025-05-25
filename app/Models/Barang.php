@@ -8,21 +8,27 @@ use Illuminate\Database\Eloquent\Model;
 class Barang extends Model
 {
     use HasFactory;
-    
+
+    protected $primaryKey = 'id_items';
     protected $fillable = [
-        'nama',
-        'jumlah_barang',
-        'id_kategori',
+        'item_name',
+        'item_image',
+        'code_items',
+        'id_category',
+        'stock',
+        'brand',
+        'status',
+        'item_condition'
     ];
 
-    public function Kategori() {
-        return $this->belongsTo(Kategori::class, 'id_kategori' );
+    public function category()
+    {
+        return $this->belongsTo(Kategori::class, 'id_category', 'id_category');
     }
 
-    public function stock()
+    public function detailsBorrow()
     {
-        return $this->hasOne(StockBarang::class, 'id_barang');
+        return $this->hasMany(DetailPengembalian::class, 'id_items', 'id_items');
     }
-    
 }
 
