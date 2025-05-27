@@ -35,6 +35,24 @@ class UserController extends Controller
         ], 200);
     }
 
+    public function show(int $id): JsonResponse
+    {
+        $user = User::where('id_user', $id)->first();
+
+        if (!$user) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'User not found!'
+            ])->setStatusCode(404);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'message' => '',
+            'data' => new UserRes($user)
+        ])->setStatusCode(200);
+    }
+
     public function store(UserReq $request): JsonResponse
     {
         $data = $request->validated();

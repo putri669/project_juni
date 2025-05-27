@@ -14,17 +14,12 @@ class AdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, $role): Response
     {
-        $user = Auth::user();
+        $roleList = explode('|', $role);
 
-        dd($user);
-
-        if($user->role !== 'admin'){
-            return response()->json([
-                'status' => 403,
-                'message' => 'You dont have permission!'
-            ], 403);
+        if (!in_array($request->user()->role, $roleList)) {
+            return response()->json(['message' => "You don't have permission"], 403);
         }
 
         return $next($request);
