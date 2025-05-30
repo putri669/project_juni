@@ -43,14 +43,14 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('admin.barang.edit', $item->id_items) }}" class="btn btn-warning btn-sm">
+                            <a href="{{ route('admin.barang.edit', $item->id_items) }}" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="bi bi-pencil"></i>
                             </a>
                             <form action="{{ route('admin.barang.destroy', $item->id_items) }}" method="POST"
                                 style="display:inline-block;" onsubmit="return confirm('Yakin hapus?')">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')" title="Hapus"><i class="bi bi-trash"></i></button>
                             </form>
                         </td>
                     </tr>

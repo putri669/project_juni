@@ -157,7 +157,7 @@
 
         <div class="menu-group">
             <h4>Laporan</h4>
-            <a href="{{ route('stock.index') }}">📈 Laporan Stok</a>
+            <a href="{{ route('admin.stock.index') }}">📈 Laporan Stok</a>
             <a href="#">📑 Data Peminjaman</a>
             <a href="#">📑 Data Pengembalian</a>
         </div>
