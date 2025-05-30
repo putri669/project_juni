@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schena::dropIfExist('barangs');
+        Schema::dropIfExist('barangs');
     }
 };

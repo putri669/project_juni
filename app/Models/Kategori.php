@@ -14,4 +14,9 @@ class Kategori extends Model
     protected $primaryKey = 'id_category';
 
     protected $fillable = ['category_name'];
+
+    public function items()
+    {
+        return $this->hasMany(Barang::class, 'id_category', 'id_category');
+    }
 }

@@ -25,7 +25,7 @@ class BarangReq extends FormRequest
             'item_name' => 'required|string|max:255',
             'item_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'code_items' => 'required|string|max:255',
-            'id_category' => 'required|exists:category_items,id_category',
+            'id_category' => 'required|exists:kategoris,id_category',
             'stock' => 'required|integer|min:0',
             'brand' => 'required|string|max:255',
         ];
