@@ -9,7 +9,7 @@ class Peminjaman extends Model
 {
     use HasFactory;
 
-    protected $table = 'borroweds';
+    protected $table = 'peminjamen';
     protected $primaryKey = 'id_borrowed';
     protected $fillable = [
         'id_user',

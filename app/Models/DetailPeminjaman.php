@@ -9,7 +9,7 @@ class DetailPeminjaman extends Model
 {
     use HasFactory;
 
-    protected $table = 'details_borrows';
+    protected $table = 'detail_peminjamen';
     protected $primaryKey = 'id_details_borrow';
     protected $fillable = [
         'id_items',
@@ -20,9 +20,9 @@ class DetailPeminjaman extends Model
         'due_date',
     ];
 
-    public function item()
+    public function detailBarang()
     {
-        return $this->belongsTo(Barang::class, 'id_items');
+        return $this->hasMany(Barang::class, 'id_items');
     }
 
     // Relasi ke borroweds

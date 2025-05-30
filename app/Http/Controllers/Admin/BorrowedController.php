@@ -17,22 +17,12 @@ class BorrowedController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index()
     {
-        $borrowed = Peminjaman::with(['detailsBorrow', 'user'])->where('soft_delete', 0)->get();
+       $peminjaman = Peminjaman::with(['detailsBorrow.detailBarang', 'user'])
+        ->where('soft_delete', 0)->get();
 
-        if ($borrowed->count() < 1) {
-            return response()->json([
-                'status' => 404,
-                'message' => 'Data not found in collection!'
-            ])->setStatusCode(404);
-        }
-
-        return response()->json([
-            'status' => 200,
-            'message' => '',
-            'data' => BarangRes::collection($borrowed)
-        ])->setStatusCode(200);
+    return view('admin.peminjaman.index', compact('peminjaman'));
     }
 
     public function store(DetailPeminjamanReq $request): JsonResponse

@@ -150,8 +150,13 @@
         </div>
 
         <div class="menu-group">
+            <h4>Data User</h4>
+            <a href="{{ route('admin.user.index') }}">👤 Tambah User</a>
+        </div>
+
+        <div class="menu-group">
             <h4>Transaksi</h4>
-            <a href="#">📝 Peminjaman Barang</a>
+            <a href="{{ route('admin.peminjaman.index') }}">📝 Peminjaman Barang</a>
             <a href="#">📋 Pengembalian Barang</a>
         </div>
 

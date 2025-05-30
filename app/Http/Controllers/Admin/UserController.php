@@ -17,27 +17,25 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    public function index(): JsonResponse
+    public function index()
     {
-        $user = User::all();
-
-        if ($user->count() < 1) {
-            return response()->json([
-                'status' => 404,
-                'message' => 'Data tidak ada di koleksi!'
-            ], 404);
-        }
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Data berhasil di ambil!',
-            'data' => UserRes::collection($user)
-        ], 200);
+       $users = User::all();
+    return view('admin.user.index', compact('users'));
     }
 
-    public function show(int $id): JsonResponse
+    public function create()
     {
-        $user = User::where('id_user', $id)->first();
+        return view('admin.user.create');
+    }
+
+    public function edit(){
+        $user = User::findOrFail($id_user);
+        return view('admin.user.edit', compact('user'));
+    }
+
+    public function show(int $id_user): JsonResponse
+    {
+        $user = User::where('id_user', $id_user)->first();
 
         if (!$user) {
             return response()->json([
@@ -75,15 +73,15 @@ class UserController extends Controller
         ], 201);
     }
 
-    public function update(UserReq $request, $id): JsonResponse
+    public function update(UserReq $request, $id_user): JsonResponse
     {
         $data = $request->validated();
-        $user = User::where('id_user', $id)->first();
+        $user = User::where('id_user', $id_user)->first();
 
         if (!$user) {
             return response()->json([
                 'status' => 404,
-                'message' => "User dengan id {$id} tidak di temukan!"
+                'message' => "User dengan id {$id_user} tidak di temukan!"
             ],404);
         }
 
@@ -98,13 +96,13 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function destroy($id) {
-        $user = User::where('id_user', $id)->first();
+    public function destroy($id_user) {
+        $user = User::where('id_user', $id_user)->first();
 
         if (!$user) {
             return response()->json([
                 'status' => 404,
-                'message' => "User dengan id {$id} tidak di temukan!"
+                'message' => "User dengan id {$id_user} tidak di temukan!"
             ], 404);
         }
 

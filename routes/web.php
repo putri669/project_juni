@@ -44,30 +44,30 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     // =====================
     // STOK BARANG
     // =====================
-    Route::get('/stok-barang', [StockBarangController::class, 'index'])->name('stock.index');
-    Route::get('/stock-barang/create', [StockBarangController::class, 'create'])->name('stock.create');
-    Route::post('/stock-barang', [StockBarangController::class, 'store'])->name('stock.store');
-    Route::get('/stock-barang/{id}/edit', [StockBarangController::class, 'edit'])->name('stock.edit');
-    Route::put('/stock-barang/{id}', [StockBarangController::class, 'update'])->name('stock.update');
-    Route::delete('/stock-barang/{id}', [StockBarangController::class, 'destroy'])->name('stock.destroy');
+    Route::get('/stok-barang', [StockBarangController::class, 'index'])->name('admin.stock.index');
+    Route::get('/stock-barang/create', [StockBarangController::class, 'create'])->name('admin.stock.create');
+    Route::post('/stock-barang', [StockBarangController::class, 'store'])->name('admin.stock.store');
+    Route::get('/stock-barang/{id}/edit', [StockBarangController::class, 'edit'])->name('admin.stock.edit');
+    Route::put('/stock-barang/{id}', [StockBarangController::class, 'update'])->name('admin.stock.update');
+    Route::delete('/stock-barang/{id}', [StockBarangController::class, 'destroy'])->name('admin.stock.destroy');
 
     // =====================
     // USER
     // =====================
-    Route::get('/user', [UserController::class, 'index'])->name('user.index');
-    Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
-    Route::post('/user', [UserController::class, 'store'])->name('user.store');
-    Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
-    Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
-    Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::get('/user', [UserController::class, 'index'])->name('admin.user.index');
+    Route::get('/user/create', [UserController::class, 'create'])->name('admin.user.create');
+    Route::post('/user', [UserController::class, 'store'])->name('admin.user.store');
+    Route::get('/user/{id_user}/edit', [UserController::class, 'edit'])->name('admin.user.edit');
+    Route::put('/user/{id_user}', [UserController::class, 'update'])->name('admin.user.update');
+    Route::delete('/user/{id_user}', [UserController::class, 'destroy'])->name('admin.user.destroy');
 
     // =====================
     // PEMINJAMAN
     // =====================
-    Route::get('/peminjaman', [BorrowedController::class, 'index'])->name('peminjaman.index');
-    Route::get('/peminjaman/{id}', [BorrowedController::class, 'show'])->name('peminjaman.show');
-    Route::post('/peminjaman/{id}/approve', [BorrowedController::class, 'approve'])->name('peminjaman.approve');
-    Route::post('/peminjaman/{id}/reject', [BorrowedController::class, 'reject'])->name('peminjaman.reject');
+    Route::get('/peminjaman', [BorrowedController::class, 'index'])->name('admin.peminjaman.index');
+    Route::get('/peminjaman/{id}', [BorrowedController::class, 'show'])->name('admin.peminjaman.show');
+    Route::post('/peminjaman/{id}/approve', [BorrowedController::class, 'approve'])->name('admin.peminjaman.approve');
+    Route::post('/peminjaman/{id}/reject', [BorrowedController::class, 'reject'])->name('admin.peminjaman.reject');
 
     // =====================
     // PENGEMBALIAN
