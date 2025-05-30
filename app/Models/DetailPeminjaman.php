@@ -8,4 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class DetailPeminjaman extends Model
 {
     use HasFactory;
+
+    protected $table = 'details_borrows';
+    protected $primaryKey = 'id_details_borrow';
+    protected $fillable = [
+        'id_items',
+        'amount',
+        'used_for',
+        'class',
+        'date_borrowed',
+        'due_date',
+    ];
+
+    public function item()
+    {
+        return $this->belongsTo(Barang::class, 'id_items');
+    }
+
+    // Relasi ke borroweds
+    public function borrowed()
+    {
+        return $this->hasOne(Peminjaman::class, 'id_details_borrow');
+    }
 }
