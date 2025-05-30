@@ -8,10 +8,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
-    public function handle(Request $request, Closure $next, $role): Response
+     public function handle(Request $request, Closure $next, $role): Response
     {
-        if (!auth()->check() || auth()->user()->role !== $role) {
-            abort(403, 'Akses ditolak.');
+        $roleList = explode('|', $role);
+
+        if (!in_array($request->user()->role, $roleList)) {
+            return response()->json(['message' => "You don't have permission"], 403);
         }
 
         return $next($request);

@@ -82,14 +82,14 @@
         <h2 class="dashboard-header">Welcome to Your Dashboard</h2>
         <div class="dashboard-cards">
             <!-- Data Barang -->
-            <a href="{{ route('barang.index') }}" class="dashboard-card barang">
+            <a href="{{ route('admin.barang.index') }}" class="dashboard-card barang">
                 <span class="icon-bg"><i class="bi bi-box"></i></span>
                 <h3>Data Barang</h3>
                 <span class="count">{{ $databarang }}</span>
             </a>
 
             <!-- Kategori Barang -->
-            <a href="{{ route('kategori.index') }}" class="dashboard-card kategori">
+            <a href="{{ route('admin.kategori.index') }}" class="dashboard-card kategori">
                 <span class="icon-bg"><i class="bi bi-tags"></i></span>
                 <h3>Kategori Barang</h3>
                 <span class="count">{{ $datakategori }}</span>

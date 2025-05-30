@@ -23,15 +23,22 @@
       <h1 class="text-3xl font-bold mb-2">Masuk ke Sistem</h1>
       <p class="text-gray-500 text-sm mb-6">Gunakan akun SAPRAS untuk masuk</p>
 
-      <form>
+      <form method="POST" action="{{ route('auth.login.submit') }}">
+        @csrf
         <div class="mb-4 relative">
           <i class="fas fa-user-tie absolute top-3 left-3 text-gray-400"></i>
-          <input type="text" name="username" class="pl-10 pr-4 py-3 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="Username" required>
+          <input type="text" name="name" class="pl-10 pr-4 py-3 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="Username" required autofocus>
+          @error('name')
+            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+          @enderror
         </div>
 
         <div class="mb-4 relative">
           <i class="fas fa-lock absolute top-3 left-3 text-gray-400"></i>
           <input type="password" name="password" class="pl-10 pr-4 py-3 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="Password" required>
+          @error('password')
+            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+          @enderror
         </div>
 
         <div class="flex items-center justify-between text-sm mb-6">
@@ -41,11 +48,10 @@
           </label>
           <a href="#" class="text-blue-600 hover:underline">Lupa password?</a>
         </div>
-        <a href="{{route ('admin.dashboard')}}">
-          <button type="button" class="w-full bg-blue-800 text-white py-3 rounded-lg hover:bg-blue-700 transition shadow-md">
-             Masuk
-            </button>
-        </a>
+
+        <button type="submit" class="w-full bg-blue-800 text-white py-3 rounded-lg hover:bg-blue-700 transition shadow-md">
+          Masuk
+        </button>
       </form>
     </div>
 

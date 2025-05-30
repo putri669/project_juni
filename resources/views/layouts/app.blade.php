@@ -145,8 +145,8 @@
 
         <div class="menu-group">
             <h4>Data Utama</h4>
-            <a href="{{ route('kategori.index') }}">📁 Kategori Barang</a>
-            <a href="{{ route('barang.index') }}">📦 Data Barang</a>
+            <a href="{{ route('admin.kategori.index') }}">📁 Kategori Barang</a>
+            <a href="{{ route('admin.barang.index') }}">📦 Data Barang</a>
         </div>
 
         <div class="menu-group">

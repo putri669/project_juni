@@ -9,24 +9,15 @@ use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\JsonResponse;
+use Illuminate\View\View;
 
 class BarangController extends Controller
 {
-    public function index(): JsonResponse
+    public function index()
     {
         $barang = Barang::with('category')->get();
-        if ($barang->count() < 1) {
-            return response()->json([
-                'status' => 404,
-                'message' => 'Data tidak ada di koleksi!'
-            ]);
-        }
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Data berhasil di ambil!',
-            'data' => BarangRes::collection($barang)
-        ], 200);
+        return view('admin.barang.index' , compact('barang'));
+        
     }
 
     public function store(BarangReq $request): JsonResponse
@@ -46,6 +37,19 @@ class BarangController extends Controller
             'data' => new BarangRes($item)
         ], 201);
     }
+
+    public function create()
+{
+    $kategori = Kategori::all();
+    return view('admin.barang.create', compact('kategori'));
+}
+
+public function edit($id)
+{
+    $barang = Barang::findOrFail($id);
+    $kategori = Kategori::all();
+    return view('admin.barang.edit', compact('barang', 'kategori'));
+}
 
     public function update(BarangReq $request, $id): JsonResponse
     {

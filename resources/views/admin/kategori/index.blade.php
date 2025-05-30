@@ -1,74 +1,78 @@
 @extends('layouts.app')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 @section('content')
-<div class="container">
-    <h1 class="mb-4" style="font-weight: 700; color: #37474f; font-size: 20px;">📂 Daftar Kategori</h1>
+<style>
+    .page-header {
+        font-weight: 600;
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        color: #2c3e50;
+        text-align: center;
+    }
 
-    <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
-        <a href="{{ route('kategori.create') }}" 
-           style="background: linear-gradient(to right, #64b5f6, #42a5f5); 
-                  color: white; 
-                  padding: 8px 16px; 
-                  border-radius: 8px; 
-                  text-decoration: none; 
-                  font-weight: 600;
-                  font-size: 14px;
-                  transition: background 0.3s;">
-            ➕ Tambah Kategori
+    .btn-primary {
+        background-color: #3498db;
+        border-color: #3498db;
+    }
+
+    .card-table {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .table th {
+        color: #2c3e50;
+    }
+
+    .table td,
+    .table th {
+        vertical-align: middle;
+    }
+</style>
+
+<div class="container py-5">
+    <h2 class="page-header">Daftar Kategori Barang</h2>
+
+    <div class="mb-4 text-end">
+        <a href="{{ route('admin.kategori.create') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Tambah Kategori
         </a>
     </div>
 
-    <div style="overflow-x:auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05); font-size: 14px;">
-        <table class="table" style="width: 100%; border-collapse: collapse;">
+    <div class="card-table">
+        <table class="table table-bordered table-striped">
             <thead>
-                <tr style="background-color: #8ba2b5; color: white; font-size: 13px;">
-                    <th style="padding: 12px;">No</th>
-                    <th style="padding: 12px;">Nama Kategori</th>
-                    <th style="padding: 12px;">Aksi</th>
+                <tr>
+                    <th>#</th>
+                    <th>Nama Kategori</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($kategoris as $index => $kategori)
-                <tr style="border-bottom: 1px solid #ddd; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor='#f1f9ff';" onmouseout="this.style.backgroundColor='white';">
-                    <td style="padding: 10px; text-align: center;">{{ $index + 1 }}</td>
-                    <td style="padding: 10px;">{{ $kategori->nama }}</td>
-                    <td style="padding: 10px; text-align: center;">
-                        <div style="display: inline-flex; gap: 6px;">
-                            <a href="{{ route('kategori.edit', $kategori->id) }}" 
-                               style="background: linear-gradient(to right, #ffb74d, #ffa726); 
-                                      color: white; 
-                                      padding: 6px 12px; 
-                                      border-radius: 6px; 
-                                      font-weight: 600;
-                                      font-size: 13px;
-                                      text-decoration: none;">
-                                ✏️ Edit
+                @forelse ($kategori as $index => $k)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $k->category_name }}</td>
+                        <td>
+                            <a href="{{ route('admin.kategori.edit', $k->id_category) }}" class="btn btn-sm btn-warning" title="Edit">
+                                <i class="bi bi-pencil"></i>
                             </a>
-                            <form action="{{ route('kategori.destroy', $kategori->id) }}" 
-                                  method="POST" 
-                                  style="display: inline;">
+                            <form action="{{ route('admin.kategori.destroy', $k->id_category) }}" method="POST" style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit"
-                                        onclick="return confirm('Yakin ingin menghapus kategori ini?')"
-                                        style="background: linear-gradient(to right, #e57373, #ef5350); 
-                                               color: white; 
-                                               padding: 6px 12px; 
-                                               border: none; 
-                                               border-radius: 6px; 
-                                               font-weight: 600;
-                                               font-size: 13px;
-                                               cursor: pointer;">
-                                    🗑️ Hapus
+                                <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus?')" title="Hapus">
+                                    <i class="bi bi-trash"></i>
                                 </button>
                             </form>
-                        </div>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 @empty
-                <tr>
-                    <td colspan="3" style="padding: 18px; text-align: center; font-size: 13px;">Belum ada kategori.</td>
-                </tr>
+                    <tr>
+                        <td colspan="3" class="text-center">Belum ada kategori.</td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>

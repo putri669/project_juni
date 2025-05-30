@@ -4,76 +4,66 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KategoriReq;
-use App\Http\Resources\KategoriRes;
 use App\Models\Kategori;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class KategoriController extends Controller
 {
-    public function index(): JsonResponse {
+    public function index(): View
+    {
         $kategori = Kategori::all();
-
-        if($kategori->count() < 1){
-            return response()->json([
-                'status' => 404,
-                'message' => 'Data tidak ada di koleksi!'
-            ]);
-        }
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Data berhasil di ambil!',
-            'data' => KategoriRes::collection($kategori)
-        ], 200);
+        return view('admin.kategori.index', compact('kategori'));
     }
 
-    public function store(KategoriReq $request): JsonResponse {
-        $category = Kategori::create($request->validated());
-
-        return response()->json([
-            'status' => 201,
-            'message' => 'Category created successfully!',
-            'data' => new KategoriRes($category)
-        ], 201);
+    public function create(): View
+    {
+        return view('admin.kategori.create');
     }
 
-    public function update(KategoriReq $request, $id): JsonResponse {
-        $req = $request->validated();
+    public function store(KategoriReq $request): RedirectResponse
+    {
+        Kategori::create($request->validated());
 
-        $category = Kategori::find($id);
-
-        if (!$category) {
-            return response()->json([
-                'status' => 404,
-                'message' => 'Data not found in collection!'
-            ])->setStatusCode(404);
-        }
-
-        $category->update($req);
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Category updated successfully!',
-            'data' => new KategoriRes($category)
-        ])->setStatusCode(200);
+        return redirect()->route('admin.kategori.index')
+            ->with('success', 'Kategori berhasil ditambahkan.');
     }
 
-    public function destroy($id): JsonResponse {
-        $category = Kategori::find($id);
+    public function edit($id): View
+    {
+        // Cari berdasarkan primary key id_category
+        $kategori = Kategori::where('id_category', $id)->firstOrFail();
 
-        if (!$category) {
-            return response()->json([
-                'status' => 404,
-                'message' => "Data with id {$id} not found in collection!"
-            ])->setStatusCode(404);
+        return view('admin.kategori.edit', compact('kategori'));
+    }
+
+    public function update(KategoriReq $request, $id): RedirectResponse
+    {
+        $kategori = Kategori::where('id_category', $id)->first();
+
+        if (!$kategori) {
+            return redirect()->route('admin.kategori.index')
+                ->with('error', 'Data tidak ditemukan.');
         }
 
-        $category->delete();
+        $kategori->update($request->validated());
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'Category deleted successfully!'
-        ])->setStatusCode(200);
+        return redirect()->route('admin.kategori.index')
+            ->with('success', 'Kategori berhasil diperbarui.');
+    }
+
+    public function destroy($id): RedirectResponse
+    {
+        $kategori = Kategori::where('id_category', $id)->first();
+
+        if (!$kategori) {
+            return redirect()->route('admin.kategori.index')
+                ->with('error', "Data dengan id {$id} tidak ditemukan.");
+        }
+
+        $kategori->delete();
+
+        return redirect()->route('admin.kategori.index')
+            ->with('success', 'Kategori berhasil dihapus.');
     }
 }

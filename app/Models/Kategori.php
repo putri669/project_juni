@@ -9,5 +9,9 @@ class Kategori extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama'];
+    protected $table = 'kategoris';
+
+    protected $primaryKey = 'id_category';
+
+    protected $fillable = ['category_name'];
 }

@@ -27,7 +27,7 @@ class AuthController extends Controller
         if(!Auth::attempt($data)){
             return response()->json([
                 'status' => 404,
-                'message' => 'Email atau passwrod anda salah!'
+                'message' => 'Name atau passwrod anda salah!'
             ], 404);
         }
 
@@ -42,6 +42,23 @@ class AuthController extends Controller
             'token_type' => 'Bearer'
         ], 200);
     }
+
+    public function loginWeb(Request $request)
+{
+    $credentials = $request->validate([
+        'name' => ['required'],
+        'password' => ['required'],
+    ]);
+
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
+        return redirect()->intended(route('admin.dashboard'));
+    }
+
+    return back()->withErrors([
+        'name' => 'Name atau password salah',
+    ])->onlyInput('name');
+}
 
     public function me(Request $request) {
         $user = $request->user();
