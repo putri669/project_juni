@@ -19,20 +19,9 @@ class PengembalianController extends Controller
      */
     public function index()
     {
-        $return = DetailPengembalian::with('borrowed')->get();
+        $returns = DetailPengembalian::with('borrowed')->where('soft_delete', 0)->get();
 
-        if ($return->count() < 1) {
-            return response()->json([
-                'status' => 404,
-                'message' => 'Data not found in collection!',
-            ])->setStatusCode(404);
-        }
-
-        return response()->json([
-            'status' => 200,
-            'message' => '',
-            'data' => DetailPengembalianRes::collection($return)
-        ])->setStatusCode(200);
+        return view('admin.pengembalian.index' , compact('returns'));
     }
 
     public function store(DetailPengembalianReq $request): JsonResponse

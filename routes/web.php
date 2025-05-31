@@ -72,10 +72,10 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     // =====================
     // PENGEMBALIAN
     // =====================
-    Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
-    Route::get('/pengembalian/{id}', [PengembalianController::class, 'show'])->name('pengembalian.show');
-    Route::post('/pengembalian/{id}/approve', [PengembalianController::class, 'approve'])->name('pengembalian.approve');
-    Route::post('/pengembalian/{id}/reject', [PengembalianController::class, 'reject'])->name('pengembalian.reject');
+    Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('admin.pengembalian.index');
+    Route::get('/pengembalian/{id}', [PengembalianController::class, 'show'])->name('admin.pengembalian.show');
+    Route::post('/pengembalian/{id}/approve', [PengembalianController::class, 'approve'])->name('admin.pengembalian.approve');
+    Route::post('/pengembalian/{id}/reject', [PengembalianController::class, 'reject'])->name('admin.pengembalian.reject');
 });
 
 Route::delete('/logout',[AuthController::class, 'logout'])->name('logout');

@@ -35,7 +35,7 @@
 
             <!-- Password kosong berarti tidak diubah -->
             <div class="mb-3">
-                <label for="password" class="form-label">Password <small class="text-muted">(Kosongkan jika tidak ingin diubah)</small></label>
+                <label for="password" class="form-label">Password <small class="text-muted"></small></label>
                 <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" autocomplete="new-password">
                 @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>

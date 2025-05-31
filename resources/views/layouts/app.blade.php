@@ -157,7 +157,7 @@
         <div class="menu-group">
             <h4>Transaksi</h4>
             <a href="{{ route('admin.peminjaman.index') }}">📝 Peminjaman Barang</a>
-            <a href="#">📋 Pengembalian Barang</a>
+            <a href="{{ route('admin.pengembalian.index') }}">📋 Pengembalian Barang</a>
         </div>
 
         <div class="menu-group">

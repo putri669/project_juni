@@ -99,14 +99,14 @@
             <div class="dashboard-card users">
                 <span class="icon-bg"><i class="bi bi-people"></i></span>
                 <h3>Users</h3>
-                <span class="count">0</span>
+                <span class="count">{{ $user }}</span>
             </div>
 
             <!-- Ruangan -->
             <div class="dashboard-card ruangan">
                 <span class="icon-bg"><i class="bi bi-building"></i></span>
-                <h3>Ruangan</h3>
-                <span class="count">50</span>
+                <h3>Total Peminjaman</h3>
+                <span class="count">{{ $peminjaman }}</span>
             </div>
         </div>
     </div>

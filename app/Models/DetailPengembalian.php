@@ -9,7 +9,7 @@ class DetailPengembalian extends Model
 {
     use HasFactory;
 
-    protected $table = 'detail_returns';
+    protected $table = 'detail_pengembalians';
     protected $primaryKey = 'id_detail_return';
     protected $fillable = [
         'id_borrowed',

@@ -12,6 +12,7 @@ class BarangSeeder extends Seeder
     {
         DB::table('barangs')->insert([
             [
+                'id_items' => 1,
                 'item_name' => 'Proyektor Epson',
                 'item_image' => 'proyektor.jpg',
                 'code_items' => 'ELEK001',
@@ -24,6 +25,7 @@ class BarangSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
+                'id_items' => 2,
                 'item_name' => 'Pulpen Pilot',
                 'item_image' => null,
                 'code_items' => 'ATK001',

@@ -77,43 +77,45 @@
 
     <div class="dashboard-cards">
         @forelse ($peminjaman as $item)
-            <div class="dashboard-card">
-                <span class="icon-bg"><i class="bi bi-clipboard-check"></i></span>
-                <h4>{{ $item->user->name }}</h4>
-                <div class="info">
-                    <strong>Barang:</strong>
-                    <ul class="mb-1">
-                       @foreach ($item->detailsBorrow->detailBarang as $barang)
-                        @if ($barang->item)
-                                <li>{{ $barang->item->item_name }} ({{ $barang->jumlah }})</li>
-                        @else
-                                <li><em>Barang tidak ditemukan</em></li>
-                        @endif
-                        @endforeach
-                    </ul>
-                    <strong>Status:</strong> {{ ucfirst($item->status) }}<br>
-                    <strong>Tanggal Pinjam:</strong> {{ $item->detailsBorrow->tanggal_pinjam }}<br>
-                    <strong>Tanggal Kembali:</strong> {{ $item->detailsBorrow->tanggal_kembali }}
-                </div>
-                <div class="actions">
-                    <<form action="{{ route('admin.peminjaman.approve', $item->id_borrowed) }}" method="POST" onsubmit="this.querySelector('button').disabled = true; this.style.display='none';">
-                        @csrf
-                        <button type="submit" class="btn btn-sm btn-approve">
-                                <i class="bi bi-check-circle"></i> Approve
-                        </button>
-                        </form>
-                        
-                        <form action="{{ route('admin.peminjaman.reject', $item->id_borrowed) }}" method="POST" onsubmit="this.querySelector('button').disabled = true; this.style.display='none';">
-                        @csrf
-                        <button type="submit" class="btn btn-sm btn-reject">
-                                <i class="bi bi-x-circle"></i> Reject
-                        </button>
-                        </form>
-                </div>
-            </div>
-        @empty
-            <p class="text-center">Tidak ada permintaan peminjaman.</p>
-        @endforelse
+    <div class="dashboard-card">
+        <span class="icon-bg"><i class="bi bi-clipboard-check"></i></span>
+        <h4>{{ $item->user->name }}</h4>
+        <div class="info">
+            <strong>Barang:</strong>
+            <ul class="mb-1">
+                @foreach ($item->detailsBorrow->detailBarang as $barang)
+                    @if ($barang->item)
+                        <!-- Fix di sini: xitem jadi item, dan ambil item_name -->
+                        <li>{{ $barang->item->item_name }} ({{ $barang->item->jumlah }})</li>
+                    @else
+                        <li><em>Barang tidak ditemukan</em></li>
+                    @endif
+                @endforeach
+            </ul>
+            <strong>Status:</strong> {{ ucfirst($item->status) }}<br>
+            <strong>Tanggal Pinjam:</strong> {{ $item->detailsBorrow->tanggal_pinjam }}<br>
+            <strong>Tanggal Kembali:</strong> {{ $item->detailsBorrow->tanggal_kembali }}
+        </div>
+        <div class="actions">
+            <!-- Hapus tanda '<' dobel sebelum form -->
+            <form action="{{ route('admin.peminjaman.approve', $item->id_borrowed) }}" method="POST" onsubmit="this.querySelector('button').disabled = true; this.style.display='none';">
+                @csrf
+                <button type="submit" class="btn btn-sm btn-approve">
+                    <i class="bi bi-check-circle"></i> Approve
+                </button>
+            </form>
+
+            <form action="{{ route('admin.peminjaman.reject', $item->id_borrowed) }}" method="POST" onsubmit="this.querySelector('button').disabled = true; this.style.display='none';">
+                @csrf
+                <button type="submit" class="btn btn-sm btn-reject">
+                    <i class="bi bi-x-circle"></i> Reject
+                </button>
+            </form>
+        </div>
+    </div>
+@empty
+    <p class="text-center">Tidak ada permintaan peminjaman.</p>
+@endforelse
     </div>
 </div>
 @endsection
