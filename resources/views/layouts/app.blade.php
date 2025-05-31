@@ -26,17 +26,17 @@
         }
 
         .sidebar {
-    width: 220px;
-    background-color: #c8d7df; /* Lebih terang dan tidak bentrok dengan warna teks */
-    color: #0a3558;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.04);
-}
+            width: 220px;
+            background-color: #c8d7df; /* Lebih terang dan tidak bentrok dengan warna teks */
+            color: #0a3558;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            box-shadow: 2px 0 6px rgba(0, 0, 0, 0.04);
+        }
 
 
 
@@ -162,14 +162,13 @@
 
         <div class="menu-group">
             <h4>Laporan</h4>
-            <a href="{{ route('admin.stock.index') }}">📈 Laporan Stok</a>
-            <a href="#">📑 Data Peminjaman</a>
-            <a href="#">📑 Data Pengembalian</a>
+            <a href="{{ route('admin.laporan.index') }}">📈 Data Laporan </a>
         </div>
 
         <div class="logout">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
+                @method('DELETE')
                 <button type="submit">🚪 Logout</button>
             </form>
         </div>

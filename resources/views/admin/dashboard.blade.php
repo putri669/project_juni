@@ -73,8 +73,12 @@
             border-left: 5px solid #9b59b6;
         }
 
-        .dashboard-card.ruangan {
+        .dashboard-card.peminjaman {
             border-left: 5px solid #2ecc71;
+        }
+
+        .dashboard-card.pengembalian {
+            border-left: 5px solid #FFD63A;  
         }
     </style>
 
@@ -96,18 +100,25 @@
             </a>
 
             <!-- Users -->
-            <div class="dashboard-card users">
+            <a class="dashboard-card users" href="{{route ('admin.user.index') }}">
                 <span class="icon-bg"><i class="bi bi-people"></i></span>
                 <h3>Users</h3>
                 <span class="count">{{ $user }}</span>
-            </div>
+            </a>
 
-            <!-- Ruangan -->
-            <div class="dashboard-card ruangan">
-                <span class="icon-bg"><i class="bi bi-building"></i></span>
+            <!-- Peminjaman -->
+            <a class="dashboard-card peminjaman" href="{{ route('admin.peminjaman.index') }}">
+                <span class="icon-bg"><i class="bi bi-box-arrow-in-right"></i></span>
                 <h3>Total Peminjaman</h3>
                 <span class="count">{{ $peminjaman }}</span>
-            </div>
+            </a>
+
+            <!-- Pengembalian -->
+            <a class="dashboard-card pengembalian" href="{{ route('admin.pengembalian.index') }}">
+                <span class="icon-bg"><i class="bi bi-box-arrow-in-left"></i></span>
+                <h3>Total Pengembalian</h3>
+                <span class="count">{{ $pengembalian }}</span>
+            </a>
         </div>
     </div>
 @endsection

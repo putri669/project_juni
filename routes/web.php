@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BarangController;
 use App\Http\Controllers\Admin\StockBarangController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BorrowedController;
+use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\PengembalianController;
 use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -76,6 +77,24 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::get('/pengembalian/{id}', [PengembalianController::class, 'show'])->name('admin.pengembalian.show');
     Route::post('/pengembalian/{id}/approve', [PengembalianController::class, 'approve'])->name('admin.pengembalian.approve');
     Route::post('/pengembalian/{id}/reject', [PengembalianController::class, 'reject'])->name('admin.pengembalian.reject');
+
+    Route::prefix('admin/laporan')->middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('admin.laporan.index');
+
+    Route::get('barang', [LaporanController::class, 'barangIndex']);
+    Route::get('barang/export/excel', [LaporanController::class, 'exportBarangExcel']);
+    Route::get('barang/export/pdf', [LaporanController::class, 'exportBarangPdf']);
+
+    // Peminjaman
+    Route::get('peminjaman', [LaporanController::class, 'peminjamanIndex']);
+    Route::get('peminjaman/export/excel', [LaporanController::class, 'exportPeminjamanExcel']);
+    Route::get('peminjaman/export/pdf', [LaporanController::class, 'exportPeminjamanPdf']);
+
+    // Pengembalian
+    Route::get('pengembalian', [LaporanController::class, 'pengembalianIndex']);
+    Route::get('pengembalian/export/excel', [LaporanController::class, 'exportPengembalianExcel']);
+    Route::get('pengembalian/export/pdf', [LaporanController::class, 'exportPengembalianPdf']);
+});
 });
 
 Route::delete('/logout',[AuthController::class, 'logout'])->name('logout');

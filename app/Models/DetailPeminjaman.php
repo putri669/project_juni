@@ -22,7 +22,7 @@ class DetailPeminjaman extends Model
 
     public function detailBarang()
     {
-        return $this->hasMany(Barang::class, 'id_items');
+        return $this->belongsTo(Barang::class, 'id_items');
     }
 
     // Relasi ke borroweds

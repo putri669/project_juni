@@ -70,14 +70,14 @@ class AuthController extends Controller
     }
 
     // Logout
-    public function logout(Request $request, int $id): JsonResponse
+    public function logout(Request $request)
     {
-        $user = $request->user();
-        $user->tokens()->where('tokenable_id', $id)->delete();
+        Auth::logout();
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'Anda berhasil logout!'
-        ], 200);
+    $request->session()->invalidate();
+
+    $request->session()->regenerateToken();
+
+    return redirect('/login');
     }
 }
