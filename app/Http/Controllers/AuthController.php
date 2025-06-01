@@ -24,7 +24,7 @@ class AuthController extends Controller
     {
         $data = $request->validated();
 
-        if(!Auth::attempt($data)){
+        if (!Auth::attempt($data)) {
             return response()->json([
                 'status' => 404,
                 'message' => 'Name atau passwrod anda salah!'
@@ -44,23 +44,24 @@ class AuthController extends Controller
     }
 
     public function loginWeb(Request $request)
-{
-    $credentials = $request->validate([
-        'name' => ['required'],
-        'password' => ['required'],
-    ]);
+    {
+        $credentials = $request->validate([
+            'name' => ['required'],
+            'password' => ['required'],
+        ]);
 
-    if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
-        return redirect()->intended(route('admin.dashboard'));
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended(route('admin.dashboard'));
+        }
+
+        return back()->withErrors([
+            'name' => 'Name atau password salah',
+        ])->onlyInput('name');
     }
 
-    return back()->withErrors([
-        'name' => 'Name atau password salah',
-    ])->onlyInput('name');
-}
-
-    public function me(Request $request) {
+    public function me(Request $request)
+    {
         $user = $request->user();
         return response()->json([
             'status' => 200,
@@ -74,10 +75,10 @@ class AuthController extends Controller
     {
         Auth::logout();
 
-    $request->session()->invalidate();
+        $request->session()->invalidate();
 
-    $request->session()->regenerateToken();
+        $request->session()->regenerateToken();
 
-    return redirect('/login');
+        return redirect('/login');
     }
 }

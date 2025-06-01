@@ -47,6 +47,7 @@ Route::middleware('auth:sanctum')->group(function () {
         //borrowed users endpoint
         Route::get('/borrowed', [BorrowedController::class, 'index']);
         Route::get('/borrowed/{id}', [BorrowedController::class, 'show']);
+        Route::post('/borrowed', [BorrowedController::class, 'store']);
 
         //users endpoint
         Route::get('/users', [UserController::class, 'index']);

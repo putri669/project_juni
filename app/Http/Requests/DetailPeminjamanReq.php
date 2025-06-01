@@ -23,12 +23,12 @@ class DetailPeminjamanReq extends FormRequest
     public function rules(): array
     {
         return [
-            'id_items' => 'required|integer|exists:items,id_item',
+            'id_items' => 'required|integer|exists:barangs,id_items',
             'amount' => 'required|integer|min:1',
             'used_for' => 'required|string|max:255',
             'class' => 'required|string|max:255',
-            'date_borrowed' => ['required', Rule::date()->format('Y-m-d')],
-            'due_date' => ['required', Rule::date()->format('Y-m-d')],
+            'date_borrowed' => ['required', 'date', 'date_format:Y-m-d'],
+            'due_date' => ['required', 'date', 'date_format:Y-m-d'],
         ];
     }
 }

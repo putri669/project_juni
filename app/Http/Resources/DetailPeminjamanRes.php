@@ -15,8 +15,8 @@ class DetailPeminjamanRes extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id_detail_borrowed,
-            'item' => new BarangRes($this->item),
+            'id' => $this->id_details_borrow,
+            'item' => new BarangRes($this->detailBarang),
             'quantity' => $this->amount,
             'noted' => $this->used_for,
             'class' => $this->class,

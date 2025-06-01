@@ -16,8 +16,7 @@ class BarangController extends Controller
     public function index()
     {
         $barang = Barang::with('category')->get();
-        return view('admin.barang.index' , compact('barang'));
-        
+        return view('admin.barang.index', compact('barang'));
     }
 
     public function store(BarangReq $request): JsonResponse
@@ -30,7 +29,6 @@ class BarangController extends Controller
 
         $item = Barang::create($data);
 
-
         return response()->json([
             'status' => 201,
             'message' => 'Barang berhasil di tambahkan!',
@@ -39,17 +37,17 @@ class BarangController extends Controller
     }
 
     public function create()
-{
-    $kategori = Kategori::all();
-    return view('admin.barang.create', compact('kategori'));
-}
+    {
+        $kategori = Kategori::all();
+        return view('admin.barang.create', compact('kategori'));
+    }
 
-public function edit($id)
-{
-    $barang = Barang::findOrFail($id);
-    $kategori = Kategori::all();
-    return view('admin.barang.edit', compact('barang', 'kategori'));
-}
+    public function edit($id)
+    {
+        $barang = Barang::findOrFail($id);
+        $kategori = Kategori::all();
+        return view('admin.barang.edit', compact('barang', 'kategori'));
+    }
 
     public function update(BarangReq $request, $id): JsonResponse
     {
