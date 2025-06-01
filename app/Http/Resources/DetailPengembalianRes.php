@@ -14,6 +14,14 @@ class DetailPengembalianRes extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id_detail_return,
+            'image' => $this->return_image,
+            'description' => $this->description,
+            'user' => $this->borrowed->user->name,
+            'item' => $this->borrowed->detailsBorrow->item->item_name,
+            'date_returned' => $this->date_return,
+            'status' => $this->status,
+        ];
     }
 }

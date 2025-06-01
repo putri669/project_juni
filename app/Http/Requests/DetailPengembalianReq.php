@@ -22,7 +22,10 @@ class DetailPengembalianReq extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id_borrowed' => 'required|integer',
+            'return_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'required|string|max:255',
+            'date_return' => ['required', 'date', 'date_format:Y-m-d']
         ];
     }
 }
