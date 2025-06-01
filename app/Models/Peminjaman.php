@@ -28,6 +28,6 @@ class Peminjaman extends Model
     // Relasi ke Detail Borrow
     public function detailsBorrow()
     {
-        return $this->belongsTo(DetailPeminjaman::class, 'id_details_borrow', 'id_details_borrow');
+        return $this->hasMany(DetailPeminjaman::class, 'id_details_borrow', 'id_details_borrow');
     }
 }

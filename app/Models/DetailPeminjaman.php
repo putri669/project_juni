@@ -30,4 +30,9 @@ class DetailPeminjaman extends Model
     {
         return $this->hasOne(Peminjaman::class, 'id_details_borrow');
     }
+
+    public function peminjman()
+    {
+        return $this->belongsTo(Peminjaman::class, 'id_borrowed', 'id_borrowed');
+    }
 }
