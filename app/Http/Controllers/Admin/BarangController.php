@@ -15,7 +15,7 @@ class BarangController extends Controller
 {
     public function index()
     {
-        $barang = Barang::with('category')->get();
+        $barang = Barang::with('category', 'detailsBorrow')->get();
         return view('admin.barang.index', compact('barang'));
     }
 

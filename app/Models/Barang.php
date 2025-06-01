@@ -27,10 +27,5 @@ class Barang extends Model
     {
         return $this->belongsTo(Kategori::class, 'id_category');
     }
-
-    public function detailsBorrow()
-    {
-        return $this->hasMany(DetailPengembalian::class, 'id_items', 'id_items');
-    }
 }
 
